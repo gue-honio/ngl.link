@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitors Counter</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f3f3f3;
+            font-family: Arial, sans-serif;
+        }
+        .counter {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .message {
+            font-size: 5vw;
+            text-align: center;
+            color: #333;
+        }
+        @media (min-width: 600px) {
+            .message {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="counter">Visitors: <span id="visitorCount">0</span></div>
+    <div class="message">hi, kung sino ka man. wala ako magawa uwu di to NGL link.</div>
+
+    <script>
+        // Get the visitor count from localStorage or initialize it to 0
+        let visitorCount = localStorage.getItem("visitorCount") || 0;
+
+        // Increment the visitor count
+        visitorCount++;
+
+        // Update localStorage with the new count
+        localStorage.setItem("visitorCount", visitorCount);
+
+        // Display the visitor count
+        document.getElementById("visitorCount").textContent = visitorCount;
+    </script>
+</body>
+</html>
