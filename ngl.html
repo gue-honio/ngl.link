@@ -1,53 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visitors Counter</title>
+    <title>Visitor Counter</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f3f3f3;
             font-family: Arial, sans-serif;
-        }
-        .counter {
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
-        .message {
-            font-size: 5vw;
             text-align: center;
-            color: #333;
         }
-        @media (min-width: 600px) {
-            .message {
-                font-size: 3rem;
-            }
+        h1 {
+            font-size: 3em;
         }
     </style>
 </head>
 <body>
-    <div class="counter">Visitors: <span id="visitorCount">0</span></div>
-    <div class="message">hi, kung sino ka man. wala ako magawa uwu di to NGL link.</div>
-
+    <h1>Visitors: <span id="visitorCount">0</span></h1>
+    <p>hi, kung sino ka man. wala ako magawa uwu di to NGL link.</p>
     <script>
-        // Get the visitor count from localStorage or initialize it to 0
-        let visitorCount = localStorage.getItem("visitorCount") || 0;
+        // Firebase config (replace with your actual config)
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
 
-        // Increment the visitor count
-        visitorCount++;
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
 
-        // Update localStorage with the new count
-        localStorage.setItem("visitorCount", visitorCount);
-
-        // Display the visitor count
-        document.getElementById("visitorCount").textContent = visitorCount;
+        // Fetch and display visitor count
+        const visitorCountRef = firebase.database().ref('visitors');
+        visitorCountRef.on('value', (snapshot) => {
+            document.getElementById('visitorCount').innerText = snapshot.val() || 0;
+        });
     </script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js"></script>
 </body>
 </html>
